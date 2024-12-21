@@ -5,16 +5,31 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: "Portofolio"
-        ports:
-            - "3000:3000"
+        container_name: portofolio
+        # ports:
+        #     - "3000:3000"
+        networks:
+            - my_network
+    # app:
+    #     image: 'jc21/nginx-proxy-manager:latest'
+    #     restart: always
+    #     ports:
+    #         - '80:80'
+    #         - '81:81'
+    #         - '443:443'
+    #     volumes:
+    #         - ./data:/data
+    #         - ./letsencrypt:/etc/letsencrypt
+    #     networks:
+    #         - app-network
+    #     environment:
+    #         DISABLE_IPV6: 'true'
 
-    app:
-        image: 'jc21/nginx-proxy-manager:latest'
-        restart: always
-        ports:
-            - '80:80'
-            - '81:81'
-            - '443:443'
-        volumes:
-            - ./letsencrypt:/etc/letsencrypt
+networks:
+    my_network:
+        name: my_network
+        driver: bridge
+
+volumes:
+    data:
+    letsencrypt:
