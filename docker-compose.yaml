@@ -10,20 +10,22 @@ services:
         #     - "3000:3000"
         networks:
             - my_network
-    # app:
-    #     image: 'jc21/nginx-proxy-manager:latest'
-    #     restart: always
-    #     ports:
-    #         - '80:80'
-    #         - '81:81'
-    #         - '443:443'
-    #     volumes:
-    #         - ./data:/data
-    #         - ./letsencrypt:/etc/letsencrypt
-    #     networks:
-    #         - app-network
-    #     environment:
-    #         DISABLE_IPV6: 'true'
+
+    app:
+        image: 'jc21/nginx-proxy-manager:latest'
+        container_name: nginx
+        restart: always
+        ports:
+            - '80:80'
+            - '81:81'
+            - '443:443'
+        volumes:
+            - ./data:/data
+            - ./letsencrypt:/etc/letsencrypt
+        networks:
+            - my_network
+        environment:
+            DISABLE_IPV6: 'true'
 
 networks:
     my_network:
